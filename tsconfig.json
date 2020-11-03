@@ -28,7 +28,7 @@
     "skipDefaultLibCheck": false,
     "strictPropertyInitialization": false
   },
-  "no-shadow": ["error", {"builtinGlobals": false, "hoist": "functions", "allow": []}],
+  "no-shadow": ["error", { "builtinGlobals": false, "hoist": "functions", "allow": [] }],
   "include": ["src/**/*"],
   "exclude": ["src/**/*.spec.ts", "node_modules"]
 }

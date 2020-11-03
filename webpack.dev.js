@@ -1,10 +1,12 @@
-const {merge} = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const config = require('./webpack.config');
 
 module.exports = merge(config, {
   mode: 'development',
+  devtool: 'inline-source-map',
   devServer: {
-    historyApiFallback: true,
+    contentBase: './bundle',
+    inline: true,
     port: 3000,
     proxy: {
       '/api/**': {
@@ -13,6 +15,10 @@ module.exports = merge(config, {
         changeOrigin: true,
       },
     },
+    historyApiFallback: true,
   },
-  devtool: 'inline-source-map',
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+  },
 });
