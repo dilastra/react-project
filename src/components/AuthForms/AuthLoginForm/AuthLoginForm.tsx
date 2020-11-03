@@ -1,0 +1,62 @@
+import React, {useState, Fragment, ChangeEvent, useContext} from 'react';
+import {AppContext} from '../../../App';
+import {request} from '../../../functions';
+
+export default function AuthLoginForm(): JSX.Element {
+  const {login} = useContext(AppContext);
+  const [loginInformation, setLoginInformation] = useState<{username: string; password: string}>({
+    username: '',
+    password: '',
+  });
+  const [disabledButton, setDisabledButton] = useState<boolean>(false);
+
+  function changeHandler(e: ChangeEvent<HTMLInputElement>): void {
+    const {name, value} = e.target;
+    setLoginInformation({...loginInformation, [name]: value});
+  }
+
+  async function requestOnLogin() {
+    setDisabledButton(true);
+    request('api/v1/auth/login', 'POST', {}, {...loginInformation})
+      .then(data => login(data.token, data.expiresIn, ''))
+      .catch(() => setDisabledButton(false));
+  }
+
+  return (
+    <>
+      <div className="control mb-4">
+        <label className="label" htmlFor="login">
+          Логин
+          <input
+            id="login"
+            name="username"
+            type="text"
+            className="input is-medium"
+            placeholder="Например, example@example.ru"
+            onChange={changeHandler}
+          />
+        </label>
+      </div>
+      <div className="control mb-4">
+        <label className="label" htmlFor="password">
+          Пароль
+          <input
+            id="password"
+            name="password"
+            type="password"
+            className="input is-medium"
+            placeholder="Например, example"
+            onChange={changeHandler}
+          />
+        </label>
+      </div>
+      <button
+        className="button is-fullwidth is-primary is-hovered is-active is-medium is-uppercase"
+        disabled={disabledButton}
+        onClick={requestOnLogin}
+      >
+        Войти
+      </button>
+    </>
+  );
+}

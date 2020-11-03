@@ -1,0 +1,15 @@
+@charset "utf-8";
+@import '../node_modules/bulma/bulma.sass';
+html {
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100vw;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}

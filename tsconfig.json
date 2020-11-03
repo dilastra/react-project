@@ -1,17 +1,34 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext", "es6"],
+    "module": "commonjs",
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "Fragment",
     "allowJs": true,
+    "alwaysStrict": true,
+    "checkJs": true,
+    "downlevelIteration": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitUseStrict": false,
+    "removeComments": true,
+    "target": "es3",
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "strict": true,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": false,
+    "charset": "utf8",
+    "emitBOM": false,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react"
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "noFallthroughCasesInSwitch": true,
+    "noStrictGenericChecks": false,
+    "skipDefaultLibCheck": false,
+    "strictPropertyInitialization": false
   },
-  "include": ["src"]
+  "no-shadow": ["error", {"builtinGlobals": false, "hoist": "functions", "allow": []}],
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.spec.ts", "node_modules"]
 }

@@ -1,0 +1,10 @@
+{
+  "extends": ["airbnb", "airbnb/hooks", "airbnb-typescript-prettier", "prettier"],
+  "plugins": ["prettier"],
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "rules": {
+    "prettier/prettier": ["error"]
+  }
+}
