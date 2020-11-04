@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 interface IApplication {
   id: string;
@@ -15,14 +15,14 @@ interface IApplication {
   createdAt: string;
 }
 
-export function ApplicationsList({applications}: {applications: IApplication[]}): JSX.Element {
+export function ApplicationsList({ applications }: { applications: IApplication[] }): JSX.Element {
   if (!applications?.length) {
     return <p>Заявок нет</p>;
   }
 
   return (
-    <div className="container mb-5">
-      <h1 className="title has-text-centered mt-5">Таблица заявок</h1>
+    <div className="container mb-5 mx-6 is-justify-content-center is-flex is-flex-direction-column">
+      <h1 className="title has-text-centered mt-5">Заявки</h1>
       <table className="table is-hoverable is-fullwidth is-striped is-narrow has-text-centered mt-5 is-bordered">
         <thead>
           <tr>

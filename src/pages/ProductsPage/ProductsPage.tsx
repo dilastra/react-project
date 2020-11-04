@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useState, Fragment} from 'react';
-import {Loader, ProductsList} from '../../components';
-import {AppContext} from '../../App';
-import {request} from '../../functions';
+import React, { useContext, useEffect, useState, Fragment } from 'react';
+import { Loader, ProductsList } from '../../components';
+import { AppContext } from '../../App';
+import { request } from '../../functions';
 
 export default function ProductsPage(): JSX.Element {
-  const {token} = useContext(AppContext);
+  const { token } = useContext(AppContext);
   const [products, setProducts] = useState(null);
   const [hideLoader, setHideLoader] = useState<boolean>(false);
 
@@ -12,7 +12,7 @@ export default function ProductsPage(): JSX.Element {
     request('/api/v1/products', 'GET', {
       Authorization: `Bearer ${token}`,
     })
-      .then(data => setProducts(data))
+      .then((data) => setProducts(data))
       .finally(() => setHideLoader(true));
   }, [token]);
 

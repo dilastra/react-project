@@ -2,11 +2,12 @@
   &__panel-container {
     max-width: 400px;
     width: 100%;
+    margin-top: -3.25rem;
   }
 }
 
 .login-page {
-  &__full-height-container {
-    height: 100%;
-  }
+  height: 100vh;
+  width: 100vw;
+  max-width: 100%;
 }

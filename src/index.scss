@@ -1,8 +1,12 @@
 @charset "utf-8";
+
+$primary: #32b15e;
+
 @import '../node_modules/bulma/bulma.sass';
 html {
   overflow: auto;
   overflow-x: hidden;
+  font-size: 15px;
 }
 
 body {
@@ -12,4 +16,9 @@ body {
 #app {
   height: 100%;
   width: 100%;
+}
+
+.login-page__background-image {
+  background: url('./assets/images/bgimage-min.jpg');
+  background-size: cover;
 }

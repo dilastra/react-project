@@ -1,10 +1,12 @@
-import {FieldProps} from '@rjsf/core';
-import React, {Fragment} from 'react';
+import { FieldProps } from '@rjsf/core';
+import React, { Fragment } from 'react';
 
-export default function TitleField({title, id}: FieldProps) {
+export default function TitleField({ title, id }: FieldProps) {
   return (
     <>
-      <h5 className={id === 'root__title' ? 'title mb-2' : 'subtitle mt-4 mb-3'}>{title}</h5>
+      <h5 className={id === 'root__title' ? 'title mb-3' : 'subtitle mt-1 is-size-4 mb-3 '}>
+        {title}
+      </h5>
     </>
   );
 }

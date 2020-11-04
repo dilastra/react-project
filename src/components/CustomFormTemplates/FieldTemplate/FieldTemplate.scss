@@ -1,0 +1,6 @@
+.border-top {
+  border-bottom: 2px solid darken(#dbdbdb, 10);
+  &:first-child {
+    border: 0;
+  }
+}

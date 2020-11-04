@@ -1,7 +1,7 @@
-import React, {useEffect, useState, Fragment} from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import Form from '@rjsf/core';
-import {FieldTemplate, Widgets} from '../CustomFormTemplates';
-import Fields from '../CustomFormTemplates/Fields';
+import { FieldTemplate, Widgets, Fields } from '../CustomFormTemplates';
+import './FormGenerator.scss';
 
 export default function FormGenerator(props: any): JSX.Element {
   const [formSchema, setFormSchema] = useState({});
@@ -16,7 +16,7 @@ export default function FormGenerator(props: any): JSX.Element {
     return <p>Поля отсутствуют</p>;
   }
 
-  const onSubmit: any = ({formData}: any, e: Event) => {
+  const onSubmit: any = ({ formData }: any, e: Event) => {
     e.preventDefault();
     props.onSubmit(formData);
   };
@@ -24,15 +24,15 @@ export default function FormGenerator(props: any): JSX.Element {
     e.preventDefault();
     props.onSave(formData);
   };
-  const onChange: any = ({formData}: any) => {
+  const onChange: any = ({ formData }: any) => {
     setFormData(formData);
   };
 
   return (
     <>
-      <div className="row">
+      <div className="mb-3">
         <Form
-          schema={{...formSchema}}
+          schema={{ ...formSchema }}
           widgets={Widgets}
           FieldTemplate={FieldTemplate}
           fields={Fields}
@@ -40,7 +40,7 @@ export default function FormGenerator(props: any): JSX.Element {
           onChange={onChange}
           onSubmit={onSubmit}
         >
-          <div>
+          <div className="button-container">
             <button className="button mr-4 is-primary" onClick={onSave}>
               Сохранить
             </button>

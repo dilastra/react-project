@@ -1,14 +1,14 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-export default function ProductsList({products}: any): JSX.Element {
+export default function ProductsList({ products }: any): JSX.Element {
   if (!products) {
     return <p>Продуктов пока нет</p>;
   }
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 mb-4">
       <h1 className="title mt-5 has-text-centered">Список продуктов</h1>
-      <div className="columns is-flex-wrap-wrap">
+      <div className="columns is-flex-wrap-wrap mx-3">
         {products.map((product: any) => {
           return (
             <div className="column is-4" key={product.id}>

@@ -1,5 +1,5 @@
 import Widgets from './Widgets';
-import {FieldTemplate} from './FieldTemplate';
-// import {Fields} from "./Fields";
+import { FieldTemplate } from './FieldTemplate';
+import Fields from './Fields';
 
-export {Widgets, FieldTemplate};
+export { Widgets, FieldTemplate, Fields };
