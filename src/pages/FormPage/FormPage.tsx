@@ -89,7 +89,7 @@ export default function FormPage({ step }: { step: string }): JSX.Element {
     onClickButton(
       formData,
       `/api/v1/applications/send${step === 'first-step' ? '' : `/${id}`}`,
-      '/applications'
+      '/application/edit-form'
     );
     return;
   };
