@@ -13,7 +13,13 @@ export default function FormGenerator(props: any): JSX.Element {
   }, [props]);
 
   if (!props.formSchema) {
-    return <p>Поля отсутствуют</p>;
+    return (
+      <div className="container">
+        <p className="subtitle has-text-centered">
+          Заявка обработана и отправлена. Ожидаем ответ от банка.
+        </p>
+      </div>
+    );
   }
 
   const onSubmit: any = ({ formData }: any, e: Event) => {

@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
 export default function Modal({
@@ -17,7 +17,7 @@ export default function Modal({
     document.removeEventListener('keydown', escFunction, false);
   }
 
-  function escFunction(event: {keyCode: number}): void {
+  function escFunction(event: { keyCode: number }): void {
     event.keyCode === 27 ? closeModal() : () => {};
   }
 
@@ -31,7 +31,7 @@ export default function Modal({
         <button
           className="modal-close is-large"
           aria-label="close"
-          onClick={_ => {
+          onClick={(_) => {
             closeModal();
           }}
         ></button>

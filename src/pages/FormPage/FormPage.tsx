@@ -1,6 +1,6 @@
 import React, { useContext, useState, Fragment, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { FormGenerator, Loader, PathList } from '../../components';
+import { FormGenerator, Loader, Modal, PathList } from '../../components';
 import { AppContext } from '../../App';
 import { request } from '../../functions';
 
@@ -8,6 +8,7 @@ export default function FormPage({ step }: { step: string }): JSX.Element {
   const { token } = useContext(AppContext);
   const { id }: { id: string } = useParams();
   const history = useHistory();
+  const [stateModal, setStateModal] = useState<boolean>(false);
   const [paths, setPaths] = useState<object[]>([]);
   const [{ formSchema, pageStepId, formData }, setFormData] = useState<{
     formSchema: object;
@@ -65,17 +66,22 @@ export default function FormPage({ step }: { step: string }): JSX.Element {
       },
       { pageStepId, productId: id, formData }
     ).then(({ id }: { id: string }) => {
-      history.push(`${urlRedirect}/${id}`);
+      if (urlRedirect.length) history.push(`${urlRedirect}/${id}`);
     });
     return;
+  }
+
+  function closeModal() {
+    setStateModal(false);
   }
 
   const onSave = function (formData: object): void {
     onClickButton(
       formData,
       `/api/v1/applications/save${step === 'first-step' ? '' : `/${id}`}`,
-      `/applications`
+      ''
     );
+    setStateModal(true);
     return;
   };
 
@@ -96,6 +102,11 @@ export default function FormPage({ step }: { step: string }): JSX.Element {
   };
   return hideLoader ? (
     <>
+      <Modal isActiveModal={stateModal} actionOnClose={closeModal}>
+        <div className="container">
+          <p className="subtitle has-text-centered is-size-4">Заявка успешно сохранена.</p>
+        </div>
+      </Modal>
       <div className="container px-6">
         <h1 className="title has-text-centered my-5">
           {step === 'first-step' ? 'Создание заявки' : 'Редактирование заявки'}
@@ -105,6 +116,8 @@ export default function FormPage({ step }: { step: string }): JSX.Element {
       </div>
     </>
   ) : (
-    <Loader />
+    <>
+      <Loader />
+    </>
   );
 }
