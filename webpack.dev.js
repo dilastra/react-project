@@ -7,10 +7,11 @@ module.exports = merge(config, {
   devServer: {
     contentBase: './bundle',
     inline: true,
+    host: '0.0.0.0',
     port: 3000,
     proxy: {
       '/api/**': {
-        target: 'http://ves.impeltech.ru',
+        target: 'http://backend-node:5000',
         secure: false,
         changeOrigin: true,
       },

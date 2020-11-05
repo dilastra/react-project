@@ -26,7 +26,6 @@ export default function AuthLoginForm(): JSX.Element {
     setDisabledButton(true);
     request('api/v1/auth/login', 'POST', {}, { ...loginInformation })
       .then((data) => {
-        console.log(data);
         login(data.token, data.expiresIn, '');
       })
       .catch((errorPromise) => {

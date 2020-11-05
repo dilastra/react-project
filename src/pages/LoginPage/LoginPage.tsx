@@ -7,7 +7,7 @@ export default function LoginPage(): JSX.Element {
   const [stateTabs, setStateTabs] = useState<string>('login');
   const tabs = [
     { id: 0, typeTab: 'login', nameTab: 'по логину' },
-    { id: 1, typeTab: 'cryptoLogin', nameTab: 'по эцл' },
+    { id: 1, typeTab: 'cryptoLogin', nameTab: 'по эцп' },
   ];
 
   function handleClick(typeTabs: string): void {

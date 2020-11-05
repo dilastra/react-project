@@ -44,7 +44,7 @@ export default function AuthCryptoForm(): JSX.Element {
         className="button is-fullwidth is-primary is-hovered is-active is-medium is-uppercase"
         onClick={() => setModalState(true)}
       >
-        выбрать ЭЦЛ
+        выбрать ЭЦП
       </button>
       {certificate && (
         <>

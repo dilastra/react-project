@@ -31,9 +31,11 @@ export default function FileWidget({ id }: WidgetProps) {
     setFileInfo({ fileName: '', selectedFile: undefined });
   }
 
-  function onCandelUploadedFile(e: React.MouseEvent<HTMLButtonElement>) {
+  function onCancelUploadedFile(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    setInfoForDownloadFile({ idFile: '', pathFile: '' });
+    if (confirm('Вы действительно хотите удалить файл?')) {
+      setInfoForDownloadFile({ idFile: '', pathFile: '' });
+    }
   }
 
   async function uploadFile(e: React.MouseEvent<HTMLButtonElement>) {
@@ -59,7 +61,8 @@ export default function FileWidget({ id }: WidgetProps) {
     }
   }
 
-  async function getFile(id: any) {
+  async function getFile(e: React.MouseEvent<HTMLButtonElement>, id: any) {
+    e.preventDefault();
     fetch('/api/v1/files/' + id, {
       method: 'GET',
     })
@@ -68,7 +71,7 @@ export default function FileWidget({ id }: WidgetProps) {
         const url = window.URL.createObjectURL(new Blob([blob]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', `FileName.pdf`);
+        link.setAttribute('download', nameFile);
         document.body.appendChild(link);
         link.click();
         link.parentNode!.removeChild(link);
@@ -115,13 +118,13 @@ export default function FileWidget({ id }: WidgetProps) {
               <span className="subtitle m-0 mr-2">Загружен файл: {nameFile}</span>
               <button
                 className="button mr-2 is-primary"
-                onClick={() => getFile(idFile)}
+                onClick={(e) => getFile(e, idFile)}
                 disabled={disabled}
               >
                 Скачать
               </button>
-              <button className="button is-primary is-outlined" onClick={onCandelUploadedFile}>
-                Отмена
+              <button className="button is-primary is-outlined" onClick={onCancelUploadedFile}>
+                Удалить файл
               </button>
             </div>
           </>

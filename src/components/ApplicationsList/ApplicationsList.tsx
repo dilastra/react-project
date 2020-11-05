@@ -21,7 +21,7 @@ export function ApplicationsList({ applications }: { applications: IApplication[
   }
 
   return (
-    <div className="container mb-5 mx-6 is-justify-content-center is-flex is-flex-direction-column">
+    <div className="container mb-5 mx-8 is-justify-content-center is-flex is-flex-direction-column">
       <h1 className="title has-text-centered mt-5">Заявки</h1>
       <table className="table is-hoverable is-fullwidth is-striped is-narrow has-text-centered mt-5 is-bordered">
         <thead>
