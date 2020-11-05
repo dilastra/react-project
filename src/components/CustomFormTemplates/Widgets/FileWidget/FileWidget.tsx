@@ -1,8 +1,7 @@
 import { WidgetProps } from '@rjsf/core';
-import React, { ChangeEvent, Fragment, useRef, useState } from 'react';
+import React, { ChangeEvent, Fragment, useEffect, useRef, useState } from 'react';
 
-export default function FileWidget({ id }: WidgetProps) {
-  const [nameFile, setNameFiles] = useState<string>('');
+export default function FileWidget({ id, value, onChange }: WidgetProps) {
   const [disabled, setDisabled] = useState<boolean>(false);
   const inputFileRef = useRef<HTMLInputElement>();
 
@@ -11,18 +10,20 @@ export default function FileWidget({ id }: WidgetProps) {
     selectedFile: File;
   }>({ fileName: '', selectedFile: undefined });
 
-  const [{ idFile, pathFile }, setInfoForDownloadFile] = useState<{
-    idFile: string;
-    pathFile: string;
-  }>({
-    idFile: '',
-    pathFile: '',
-  });
+  const [idFile, setIdFile] = useState<string>('');
 
-  function onChange(event: ChangeEvent<HTMLInputElement>): void {
+  useEffect(() => {
+    if (value) {
+      const { id, fileName }: { id: string; fileName: string } = value;
+      setIdFile(id);
+      setFileInfo({ fileName, selectedFile: undefined });
+    }
+  }, []);
+
+  function onSelectFile(event: ChangeEvent<HTMLInputElement>): void {
     event.preventDefault();
     setFileInfo({ fileName: event.target.files[0].name, selectedFile: event.target.files[0] });
-    setNameFiles(event.target.files[0].name);
+    setIdFile('');
   }
 
   function onCancelUploadFile(e: React.MouseEvent<HTMLButtonElement>) {
@@ -31,10 +32,13 @@ export default function FileWidget({ id }: WidgetProps) {
     setFileInfo({ fileName: '', selectedFile: undefined });
   }
 
-  function onCancelUploadedFile(e: React.MouseEvent<HTMLButtonElement>) {
+  function onDeletelUploadedFile(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (confirm('Вы действительно хотите удалить файл?')) {
-      setInfoForDownloadFile({ idFile: '', pathFile: '' });
+      setIdFile('');
+      setIdFile('');
+      setFileInfo({ fileName: '', selectedFile: undefined });
+      onChange(null);
     }
   }
 
@@ -52,16 +56,17 @@ export default function FileWidget({ id }: WidgetProps) {
 
     if (response.ok) {
       const {
-        data: { id, path },
+        data: { id },
       }: { data: { id: string; path: string } } = await response.json();
-      setInfoForDownloadFile({ idFile: id, pathFile: path });
+      setIdFile(id);
+      onChange({ id });
       setDisabled(false);
     } else {
       console.log(response.json());
     }
   }
 
-  async function getFile(e: React.MouseEvent<HTMLButtonElement>, id: any) {
+  async function getFile(e: React.MouseEvent<HTMLButtonElement>, id: string) {
     e.preventDefault();
     fetch('/api/v1/files/' + id, {
       method: 'GET',
@@ -71,7 +76,7 @@ export default function FileWidget({ id }: WidgetProps) {
         const url = window.URL.createObjectURL(new Blob([blob]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', nameFile);
+        link.setAttribute('download', fileName);
         document.body.appendChild(link);
         link.click();
         link.parentNode!.removeChild(link);
@@ -88,7 +93,7 @@ export default function FileWidget({ id }: WidgetProps) {
               className="file-input"
               name="resume"
               type="file"
-              onChange={onChange}
+              onChange={onSelectFile}
               ref={inputFileRef}
             />
             <span className="file-cta">
@@ -99,10 +104,10 @@ export default function FileWidget({ id }: WidgetProps) {
             </span>
           </label>
         </div>
-        {!!fileName.length && !idFile.length && (
+        {!!fileName.length && selectedFile && !idFile.length && (
           <>
             <div className="is-flex is-align-items-center  ml-3">
-              <span className="subtitle m-0 mr-2">Будет загружен файл: {nameFile}</span>
+              <span className="subtitle m-0 mr-2">Будет загружен файл: {fileName}</span>
               <button className="button mr-2 is-primary" onClick={uploadFile} disabled={disabled}>
                 Загрузить
               </button>
@@ -112,10 +117,10 @@ export default function FileWidget({ id }: WidgetProps) {
             </div>
           </>
         )}
-        {!!idFile.length && (
+        {idFile && !!idFile.length && (
           <>
             <div className="is-flex is-align-items-center  ml-3">
-              <span className="subtitle m-0 mr-2">Загружен файл: {nameFile}</span>
+              <span className="subtitle m-0 mr-2">Загружен файл: {fileName}</span>
               <button
                 className="button mr-2 is-primary"
                 onClick={(e) => getFile(e, idFile)}
@@ -123,7 +128,7 @@ export default function FileWidget({ id }: WidgetProps) {
               >
                 Скачать
               </button>
-              <button className="button is-primary is-outlined" onClick={onCancelUploadedFile}>
+              <button className="button is-primary is-outlined" onClick={onDeletelUploadedFile}>
                 Удалить файл
               </button>
             </div>

@@ -11,7 +11,7 @@ module.exports = merge(config, {
     port: 3000,
     proxy: {
       '/api/**': {
-        target: 'http://backend-node:5000',
+        target: 'http://ves.impeltech.ru',
         secure: false,
         changeOrigin: true,
       },
