@@ -1,4 +1,5 @@
-import {useState, useCallback, useEffect, useRef} from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const storageName = 'tokenInformation';
 
@@ -13,6 +14,7 @@ export default function useAuth(): IUseAuth {
   const [ready, setReady] = useState<boolean>(false);
   const [token, setToken] = useState<string>('');
   const intervalId = useRef<ReturnType<typeof setInterval>>();
+  const history = useHistory();
 
   function getTimeDeadToken(expiresIn = 0, deadToken = ''): string | Date {
     const dateNow = new Date();
@@ -27,6 +29,7 @@ export default function useAuth(): IUseAuth {
 
   const logout = useCallback(() => {
     setToken('');
+    history.push('/login');
     localStorage.removeItem(storageName);
     clearInterval(intervalId.current);
   }, []);
@@ -49,7 +52,7 @@ export default function useAuth(): IUseAuth {
   }, []);
 
   useEffect(() => {
-    const authInformation: {token: string; expiresIn: number; deadToken: string} = JSON.parse(
+    const authInformation: { token: string; expiresIn: number; deadToken: string } = JSON.parse(
       localStorage.getItem(storageName) as string
     );
 
@@ -60,5 +63,5 @@ export default function useAuth(): IUseAuth {
     setReady(true);
   }, [login]);
 
-  return {login, logout, token, ready};
+  return { login, logout, token, ready };
 }
