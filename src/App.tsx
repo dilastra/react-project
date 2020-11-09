@@ -1,7 +1,9 @@
 import React, { createContext, Fragment } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { Loader, Navbar } from './components';
 import { useAuth } from './hooks';
 import { AppRouting, LoginRouting } from './routing';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AppContext = createContext({
   token: '',
@@ -25,6 +27,17 @@ export function App(): JSX.Element {
           <Navbar />
           <div className="container is-fullhd">
             <AppRouting />
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
           </div>
         </AppContext.Provider>
       </>

@@ -86,27 +86,29 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
   return (
     <>
       <div className="is-flex is-align-items-center">
-        <div className="file">
-          <label htmlFor={id} className="file-label">
-            <input
-              id={id}
-              className="file-input"
-              name="resume"
-              type="file"
-              onChange={onSelectFile}
-              ref={inputFileRef}
-            />
-            <span className="file-cta">
-              <span className="file-icon">
-                <i className="fas fa-upload"></i>
+        {!idFile && !idFile.length && (
+          <div className="file mr-3">
+            <label htmlFor={id} className="file-label">
+              <input
+                id={id}
+                className="file-input"
+                name="resume"
+                type="file"
+                onChange={onSelectFile}
+                ref={inputFileRef}
+              />
+              <span className="file-cta">
+                <span className="file-icon">
+                  <i className="fas fa-upload"></i>
+                </span>
+                <span className="file-label">Выберите файл…</span>
               </span>
-              <span className="file-label">Выберите файл…</span>
-            </span>
-          </label>
-        </div>
+            </label>
+          </div>
+        )}
         {!!fileName.length && selectedFile && !idFile.length && (
           <>
-            <div className="is-flex is-align-items-center  ml-3">
+            <div className="is-flex is-align-items-center">
               <span className="subtitle m-0 mr-2">Будет загружен файл: {fileName}</span>
               <button className="button mr-2 is-primary" onClick={uploadFile} disabled={disabled}>
                 Загрузить
@@ -119,7 +121,7 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
         )}
         {idFile && !!idFile.length && (
           <>
-            <div className="is-flex is-align-items-center  ml-3">
+            <div className="is-flex is-align-items-center">
               <span className="subtitle m-0 mr-2">Загружен файл: {fileName}</span>
               <button
                 className="button mr-2 is-primary"

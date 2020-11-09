@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { AppContext } from '../../App';
+import { arrNavLink } from './arrNavLink';
 
 export default function Navbar(): JSX.Element {
   document.querySelector('html').classList.add('has-navbar-fixed-top');
@@ -8,11 +9,14 @@ export default function Navbar(): JSX.Element {
   const history = useHistory();
   const { logout } = useContext(AppContext);
 
-  const logoutHandler = (event: any) => {
+  function onClick() {
+    setStateMenu(false);
+  }
+
+  function logoutHandler(event: any) {
     event.preventDefault();
     logout();
-    history.push('/');
-  };
+  }
 
   return (
     <>
@@ -35,20 +39,17 @@ export default function Navbar(): JSX.Element {
 
         <div className={stateMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
           <div className="navbar-end">
-            <NavLink to="/applications" className="navbar-item">
-              Заявки
-            </NavLink>
-            <NavLink to="/products" className="navbar-item">
-              Продукты
-            </NavLink>
+            {arrNavLink.map(({ key, name, path }: { key: number; name: string; path: string }) => {
+              return (
+                <NavLink key={key} to={path} className="navbar-item" onClick={onClick}>
+                  {name}
+                </NavLink>
+              );
+            })}
 
-            <NavLink to="/profile" className="navbar-item">
-              Профиль
-            </NavLink>
-
-            <a href="/logout" onClick={logoutHandler} className="navbar-item">
+            <NavLink to="/login" onClick={logoutHandler} className="navbar-item">
               Выйти
-            </a>
+            </NavLink>
           </div>
         </div>
       </nav>

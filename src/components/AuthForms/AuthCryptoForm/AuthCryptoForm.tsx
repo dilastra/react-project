@@ -1,11 +1,11 @@
-import React, {useCallback, useContext, useState, Fragment} from 'react';
-import {Certificate, getUserCertificates, createSignature} from 'crypto-pro';
-import {AppContext} from '../../../App';
-import {Modal} from '../../Modal';
-import {request} from '../../../functions';
+import React, { useCallback, useContext, useState, Fragment } from 'react';
+import { Certificate, getUserCertificates, createSignature } from 'crypto-pro';
+import { AppContext } from '../../../App';
+import { Modal } from '../../Modal';
+import { request } from '../../../functions';
 
 export default function AuthCryptoForm(): JSX.Element {
-  const {login} = useContext(AppContext);
+  const { login } = useContext(AppContext);
   const [certificates, setCertificates] = useState([] as Certificate[]);
   const [certificate, setCertificate] = useState<Certificate | undefined>(undefined);
   const [modalState, setModalState] = useState<boolean>(false);
@@ -19,7 +19,7 @@ export default function AuthCryptoForm(): JSX.Element {
   }, []);
 
   const selectCertificate = (event: any) => {
-    setCertificate(certificates.find(({thumbprint}) => thumbprint === event.target.value));
+    setCertificate(certificates.find(({ thumbprint }) => thumbprint === event.target.value));
   };
   const cryptoLoginHandler = async () => {
     // const hash = 'b285056dbf18d7392d7677369524dd14747459ed8143997e163b2986f92fd42c'
@@ -28,7 +28,7 @@ export default function AuthCryptoForm(): JSX.Element {
     try {
       if (certificate) {
         const sign = await createSignature(certificate.thumbprint, hashBase64);
-        const data = await request('api/v1/auth/crypto', 'POST', {}, {sign});
+        const data = await request('api/v1/auth/crypto', 'POST', {}, { sign });
         login(data.token, data.expiresIn, '');
       }
     } catch (e) {}
@@ -59,7 +59,11 @@ export default function AuthCryptoForm(): JSX.Element {
       )}
 
       {modalState && (
-        <Modal isActiveModal={modalState} actionOnClose={onClosedModal}>
+        <Modal
+          titleModal="Выбор ЭЦП для авторизации"
+          isActiveModal={modalState}
+          actionOnClose={onClosedModal}
+        >
           <>
             <div className="field">
               <label className="label" htmlFor="select">
@@ -68,8 +72,8 @@ export default function AuthCryptoForm(): JSX.Element {
               <div className="control is-expanded">
                 <div className="select is-fullwidth">
                   <select onChange={selectCertificate} id="select">
-                    <option defaultValue={undefined}>Выбрать ЭЦЛ</option>
-                    {certificates.map(({name, thumbprint}) => (
+                    <option defaultValue={undefined}>Выбрать ЭЦП</option>
+                    {certificates.map(({ name, thumbprint }) => (
                       <option key={thumbprint} value={thumbprint}>
                         {name}
                       </option>
