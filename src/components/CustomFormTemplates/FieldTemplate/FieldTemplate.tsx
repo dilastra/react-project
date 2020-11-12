@@ -6,13 +6,13 @@ export default function FieldTemplate(props: FieldTemplateProps): any {
   const { id, label, displayLabel, children } = props;
   return (
     <>
-      <div className={displayLabel ? 'field' : 'field border-top pb-5'}>
+      <div className={displayLabel ? 'field' : undefined}>
         {displayLabel && (
           <label htmlFor={id} className="is-size-5">
             {label}
           </label>
         )}
-        <div className="control">{children}</div>
+        {children}
       </div>
     </>
   );

@@ -1,6 +1,12 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import Form from '@rjsf/core';
-import { FieldTemplate, Widgets, Fields } from '../CustomFormTemplates';
+import {
+  FieldTemplate,
+  Widgets,
+  Fields,
+  ArrayFieldTemplate,
+  ObjectFieldTemplate,
+} from '../CustomFormTemplates';
 import './FormGenerator.scss';
 
 export default function FormGenerator(props: any): JSX.Element {
@@ -24,11 +30,11 @@ export default function FormGenerator(props: any): JSX.Element {
 
   const onSubmit: any = ({ formData }: any, e: Event) => {
     e.preventDefault();
-    props.onSubmit(formData);
+    // props.onSubmit(formData);
   };
   const onSave: any = (e: Event) => {
     e.preventDefault();
-    props.onSave(formData);
+    // props.onSave(formData);
   };
   const onChange: any = ({ formData }: any) => {
     setFormData(formData);
@@ -41,16 +47,19 @@ export default function FormGenerator(props: any): JSX.Element {
           schema={{ ...formSchema }}
           widgets={Widgets}
           FieldTemplate={FieldTemplate}
+          ArrayFieldTemplate={ArrayFieldTemplate}
+          ObjectFieldTemplate={ObjectFieldTemplate}
           fields={Fields}
           formData={formData}
           onChange={onChange}
           onSubmit={onSubmit}
+          className="pt-5"
         >
-          <div className="button-container">
-            <button className="button mr-4 is-primary" onClick={onSave}>
+          <div className="button-container mt-2">
+            <button className="button mr-4 is-link" onClick={onSave}>
               Сохранить
             </button>
-            <button className="button is-primary" type="submit">
+            <button className="button is-info" type="submit">
               Отправить
             </button>
           </div>

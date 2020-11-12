@@ -1,6 +1,9 @@
-.border-top {
-  border-bottom: 2px solid darken(#dbdbdb, 10);
-  &:first-child {
-    border: 0;
+.border-bottom {
+  &:last-child {
+    border-bottom: 2px solid whitesmoke;
   }
+}
+
+.field:not(:last-child) {
+  margin-bottom: 1.5rem;
 }

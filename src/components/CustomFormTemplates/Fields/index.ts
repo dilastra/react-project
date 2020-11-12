@@ -1,5 +1,4 @@
-import {TitleField} from './TitleField';
-
+import TitleField from './TitleField';
 const Fields = {
   TitleField,
 };

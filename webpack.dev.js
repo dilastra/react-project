@@ -5,7 +5,7 @@ module.exports = merge(config, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './bundle',
+    contentBase: './build',
     inline: true,
     port: 3000,
     proxy: {
