@@ -7,6 +7,7 @@ module.exports = merge(config, {
   devServer: {
     contentBase: './build',
     inline: true,
+    host: process.env.HOST_ENV,
     port: 3000,
     proxy: {
       '/api/**': {
