@@ -70,7 +70,9 @@ export default function AuthLoginForm(): JSX.Element {
         )}
       </div>
       <button
-        className="button is-fullwidth is-primary is-hovered is-active is-medium is-uppercase"
+        className={`button is-fullwidth is-primary is-hovered is-active is-medium is-uppercase ${
+          disabledButton ? `is-loading` : ``
+        }`}
         disabled={disabledButton}
         onClick={requestOnLogin}
       >

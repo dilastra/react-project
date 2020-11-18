@@ -1,28 +1,35 @@
 import React, { Fragment } from 'react';
 import './ArrayFieldTemplate.scss';
 
-export default function ArrayFieldTemplate({ items, canAdd, onAddClick }) {
+export default function ArrayFieldTemplate(props) {
+  const {
+    items,
+    canAdd,
+    onAddClick,
+    schema: { dropDown },
+  } = props;
+
   return (
     <>
       {items &&
-        items.map(({ key, children, onDropIndexClick, index }) => (
-          <div key={key} className="pb-3 mb-3 box">
-            {children}
+        items.map(({ key, children, onDropIndexClick, index }) => {
+          return (
+            <div key={key} className="pb-3 mb-3 box">
+              {children}
 
-            <div className="is-flex is-justify-content-flex-end">
-              <button onClick={onDropIndexClick(index)} className="button is-danger">
-                Удалить
-              </button>
+              <div className="is-flex is-justify-content-flex-end">
+                <button onClick={onDropIndexClick(index)} className="button is-danger">
+                  Удалить
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
       {canAdd && (
-        <div className={items && items.length > 0 ? 'border-top' : undefined}>
-          <button type="button" className="button is-primary mt-5" onClick={onAddClick}>
-            Добавить
-          </button>
-        </div>
+        <button type="button" className="button is-primary mt-5" onClick={onAddClick}>
+          Добавить
+        </button>
       )}
     </>
   );

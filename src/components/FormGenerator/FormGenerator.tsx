@@ -30,11 +30,11 @@ export default function FormGenerator(props: any): JSX.Element {
 
   const onSubmit: any = ({ formData }: any, e: Event) => {
     e.preventDefault();
-    // props.onSubmit(formData);
+    props.onSubmit(formData);
   };
   const onSave: any = (e: Event) => {
     e.preventDefault();
-    // props.onSave(formData);
+    props.onSave(formData);
   };
   const onChange: any = ({ formData }: any) => {
     setFormData(formData);

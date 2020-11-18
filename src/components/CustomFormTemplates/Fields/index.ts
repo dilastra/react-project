@@ -1,4 +1,5 @@
 import TitleField from './TitleField';
+
 const Fields = {
   TitleField,
 };
