@@ -8,8 +8,8 @@ export default function TextWidget({ id, placeholder, value, onChange }: WidgetP
         id={id}
         className="input is-medium"
         type="text"
-        placeholder={placeholder}
-        value={value}
+        value={value ? value : ''}
+        placeholder={placeholder ? placeholder : ''}
         onChange={(event) => onChange(event.target.value)}
       />
     </>

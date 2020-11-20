@@ -7,6 +7,7 @@ import {
   ArrayFieldTemplate,
   ObjectFieldTemplate,
 } from '../CustomFormTemplates';
+import FormSchema from './test_schema/testSchema';
 import './FormGenerator.scss';
 
 export default function FormGenerator(props: any): JSX.Element {

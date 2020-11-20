@@ -2,7 +2,12 @@
   transform: rotate(180deg);
 }
 
-.container-hidden {
-  overflow: hidden;
-  height: 0;
+.hidden-container {
+  display: none;
+}
+
+.delete-mb-last-child {
+  &:last-child {
+    margin-bottom: 0;
+  }
 }

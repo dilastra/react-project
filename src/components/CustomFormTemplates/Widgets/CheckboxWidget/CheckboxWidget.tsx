@@ -9,7 +9,7 @@ export default function CheckboxWidget({ id, value, label, onChange }) {
           className="mr-2"
           type="checkbox"
           onChange={(event) => onChange(event.target.checked)}
-          checked={typeof value === 'undefined' ? false : JSON.parse(value)}
+          checked={value ? true : false}
         />
         {label}
       </label>
