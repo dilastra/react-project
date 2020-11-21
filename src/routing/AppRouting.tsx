@@ -1,6 +1,12 @@
-import React, {Fragment} from 'react';
-import {Redirect, Route} from 'react-router-dom';
-import {ApplicationInfoPage, ApplicationsPage, FormPage, ProductsPage, ProfilePage} from '../pages/index';
+import React, { Fragment } from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import {
+  ApplicationInfoPage,
+  ApplicationsPage,
+  FormPage,
+  ProductsPage,
+  ProfilePage,
+} from '../pages/index';
 
 export default function AppRouting(): JSX.Element {
   return (
@@ -24,7 +30,7 @@ export default function AppRouting(): JSX.Element {
         <ProductsPage />
       </Route>
       <Route exact path="/products/create-form/:id">
-        <FormPage step={'first-step'} />
+        <FormPage step={'first-step'} openAllSection={true} />
       </Route>
       <Route exact path="/profile">
         <ProfilePage />

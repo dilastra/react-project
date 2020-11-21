@@ -1,11 +1,21 @@
-import React, { useContext, useState, Fragment, useEffect } from 'react';
+import React, { useContext, useState, Fragment, useEffect, createContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { FormGenerator, Loader, PathList } from '../../components';
 import { AppContext } from '../../App';
 import { request } from '../../functions';
 import { toast } from 'react-toastify';
 
-export default function FormPage({ step }: { step: string }): JSX.Element {
+export const FormPageContext = createContext({
+  openAllSection: undefined,
+});
+
+export function FormPage({
+  step,
+  openAllSection = false,
+}: {
+  step: string;
+  openAllSection?: boolean;
+}): JSX.Element {
   const { token } = useContext(AppContext);
   const { id }: { id: string } = useParams();
   const history = useHistory();
@@ -104,7 +114,9 @@ export default function FormPage({ step }: { step: string }): JSX.Element {
           {step === 'first-step' ? 'Создание заявки' : 'Редактирование заявки'}
         </h1>
         <PathList paths={paths} />
-        <FormGenerator {...pageProps} />
+        <FormPageContext.Provider value={{ openAllSection }}>
+          <FormGenerator {...pageProps} />
+        </FormPageContext.Provider>
       </div>
     </>
   ) : (

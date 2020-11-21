@@ -1,19 +1,59 @@
-import React, { Fragment, Children } from 'react';
+import React, { Fragment, Children, useContext, useLayoutEffect } from 'react';
+import { ArrayFieldTemplateItemContext } from '../../ArrayFieldTemplate';
 
 export default function ObjectFieldTemplateProperties({ properties }) {
-  return properties.map((props) => {
-    const [typeContent] = Children.map(props.content, ({ props: { schema } }) => {
-      return schema.type;
+  const { setFormData } = useContext(ArrayFieldTemplateItemContext);
+
+  useLayoutEffect(() => {
+    properties.map(({ content }: { content: JSX.Element }) => {
+      Children.map(content, ({ props: { formData, schema } }) => {
+        if (schema.type === 'string') {
+          return setFormData((prevState) => {
+            if (prevState.length > 0) {
+              const indexObject = prevState.findIndex((value) => {
+                if (value.title === schema.title) {
+                  return true;
+                }
+
+                return false;
+              });
+              if (indexObject === -1) {
+                return [...prevState, { title: schema.title, value: formData }];
+              } else {
+                return prevState.map((value, index) => {
+                  if (index === indexObject) {
+                    return { title: schema.title, value: formData };
+                  }
+
+                  return value;
+                });
+              }
+
+              return prevState;
+            } else {
+              return [{ title: schema.title, value: formData }];
+            }
+          });
+        }
+      });
+    });
+  }, [properties]);
+
+  return properties.map(({ content }: { content: JSX.Element }) => {
+    const [typeContent] = Children.map(content, ({ props }) => {
+      return props.schema.type;
     });
 
-    {
-      return typeContent !== 'string' ? (
-        <div key={props.content.key} className={'box mb-5'}>
-          <>{props.content}</>
-        </div>
-      ) : (
-        <Fragment key={props.content.key}>{props.content}</Fragment>
-      );
-    }
+    return (
+      <Fragment key={content.key}>
+        {typeContent !== 'string' ? (
+          <div key={content.key} className={'box mb-5'}>
+            <>{content}</>
+          </div>
+        ) : (
+          <>{content}</>
+        )}
+      </Fragment>
+    );
   });
 }

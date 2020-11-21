@@ -1,13 +1,13 @@
-import React, { Fragment, useState } from 'react';
-import './ObjectFieldTemplate.scss';
+import React, { Fragment } from 'react';
 import ObjectFieldTemplateProperties from './ObjectFieldTemplateProperties';
+import './ObjectFieldTemplate.scss';
 
 export default function ObjectFieldTemplate({
   TitleField,
   title,
   properties,
-  schema: { section, id },
-}) {
+  schema: { id },
+}): JSX.Element {
   return (
     <>
       <TitleField title={title} id={id} />

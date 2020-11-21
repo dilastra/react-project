@@ -1,3 +1,3 @@
-import FormPage from './FormPage';
+import { FormPage, FormPageContext } from './FormPage';
 
-export default FormPage;
+export { FormPage, FormPageContext };
