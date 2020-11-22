@@ -6,11 +6,9 @@ export const ArrayFieldTemplateContext = createContext({
   addedNewItem: undefined,
 });
 
-export function ArrayFieldTemplate({
-  items,
-  canAdd,
-  onAddClick,
-}: ArrayFieldTemplateProps): JSX.Element {
+export function ArrayFieldTemplate(props: ArrayFieldTemplateProps): JSX.Element {
+  const { items, canAdd, onAddClick } = props;
+  console.log(props);
   const [addedNewItem, setAddedNewItem] = useState<boolean>(false);
 
   function handleClick(e) {

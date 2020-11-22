@@ -17,15 +17,6 @@ export default function ArrayFieldTemplateItems({ items }): JSX.Element {
                 }}
               >
                 {children}
-                {items.length > 1 && (
-                  <>
-                    <div className="is-flex is-justify-content-flex-end">
-                      <button onClick={onDropIndexClick(index)} className="button is-danger">
-                        Удалить
-                      </button>
-                    </div>
-                  </>
-                )}
               </ArrayFieldTemplateItem>
             </div>
           );
