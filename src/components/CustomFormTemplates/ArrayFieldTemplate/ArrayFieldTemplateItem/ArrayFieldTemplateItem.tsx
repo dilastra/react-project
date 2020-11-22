@@ -20,15 +20,11 @@ export function ArrayFieldTemplateItem({ children }) {
     <>
       <div className="is-flex is-justify-content-space-between">
         <div>
-          {formData.map(({ title, value }, index) => {
+          {formData.map(({ value }, index) => {
             return (
-              <>
-                {value.length > 0 && (
-                  <p key={index}>
-                    {title}: {value}
-                  </p>
-                )}
-              </>
+              <Fragment key={index}>
+                {value && value.length > 0 && <span>{`${value} `}</span>}
+              </Fragment>
             );
           })}
         </div>
