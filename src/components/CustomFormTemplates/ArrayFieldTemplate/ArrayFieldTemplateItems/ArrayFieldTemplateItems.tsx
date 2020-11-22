@@ -9,7 +9,13 @@ export default function ArrayFieldTemplateItems({ items }): JSX.Element {
         items.map(({ key, children, onDropIndexClick, index }) => {
           return (
             <div key={key} className="pb-3 mb-3 box">
-              <ArrayFieldTemplateItem>
+              <ArrayFieldTemplateItem
+                itemsLength={items.length}
+                index={index}
+                onDropIndexClick={(event, index) => {
+                  onDropIndexClick(index)(event);
+                }}
+              >
                 {children}
                 {items.length > 1 && (
                   <>

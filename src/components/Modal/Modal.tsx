@@ -6,11 +6,13 @@ export default function Modal({
   titleModal,
   isActiveModal,
   actionOnClose,
+  isConfirm,
 }: {
   children: JSX.Element;
   titleModal: string;
   isActiveModal: boolean;
-  actionOnClose(): void;
+  actionOnClose?(): void;
+  isConfirm?: boolean;
 }): JSX.Element {
   const modalBlock = document.getElementById('modal');
   document.addEventListener('keydown', escFunction, false);
@@ -30,8 +32,14 @@ export default function Modal({
         <div className="modal-background" onClick={closeModal}></div>
         <div className="modal-card">
           <header className="modal-card-head">
-            <p className="modal-card-title">{titleModal}</p>
-            <button className="delete" aria-label="close" onClick={closeModal}></button>
+            <p
+              className={`modal-card-title ${isConfirm ? `is-flex is-justify-content-center` : ``}`}
+            >
+              {titleModal}
+            </p>
+            {!isConfirm && (
+              <button className="delete" aria-label="close" onClick={closeModal}></button>
+            )}
           </header>
           <div className="modal-card-body">{children}</div>
         </div>
