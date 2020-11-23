@@ -19,11 +19,11 @@ export default function ObjectFieldTemplateProperties({ properties }) {
               });
 
               if (indexObject === -1) {
-                return [...prevState, { title: schema.title, value: formData }];
+                return [...prevState, { title: schema.title, name: schema.name, value: formData }];
               } else {
                 return prevState.map((value, index) => {
                   if (index === indexObject) {
-                    return { title: schema.title, value: formData };
+                    return { title: schema.title, name: schema.name, value: formData };
                   }
                   return value;
                 });
@@ -31,7 +31,7 @@ export default function ObjectFieldTemplateProperties({ properties }) {
 
               return prevState;
             } else {
-              return [{ title: schema.title, value: formData }];
+              return [{ title: schema.title, name: schema.name, value: formData }];
             }
           });
         }

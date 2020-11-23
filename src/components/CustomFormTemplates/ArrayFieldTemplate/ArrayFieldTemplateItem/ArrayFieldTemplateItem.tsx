@@ -12,7 +12,6 @@ export function ArrayFieldTemplateItem({ children, itemsLength, index, onDropInd
   const [showForm, setShowForm] = useState<boolean>(addedNewItem || false);
   const [modalState, setModalState] = useState<boolean>(false);
   const [formData, setFormData] = useState([]);
-
   function handleClick(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
     setShowForm(!showForm);
@@ -21,13 +20,17 @@ export function ArrayFieldTemplateItem({ children, itemsLength, index, onDropInd
     <>
       <div className={`is-flex is-justify-content-space-between ${showForm ? 'mb-3' : ''}`}>
         <div className="is-flex is-align-items-center">
-          {formData.map(({ value }, index) => {
-            return (
-              <Fragment key={index}>
-                {value && value.length > 0 && <span className="mr-1">{`${value}`}</span>}
-              </Fragment>
-            );
-          })}
+          {formData
+            .sort((a, b) => {
+              return display.indexOf(a.name) - display.indexOf(b.name);
+            })
+            .map(({ value }, index) => {
+              return (
+                <Fragment key={index}>
+                  {value && value.length > 0 && <span className="mr-1">{`${value}`}</span>}
+                </Fragment>
+              );
+            })}
         </div>
         <div className={itemsLength > 0 ? 'is-flex is-align-items-center' : undefined}>
           <button className={'button is-rounded'} onClick={handleClick}>
