@@ -2,12 +2,12 @@ import React, { Fragment, Children, useContext, useLayoutEffect } from 'react';
 import { ArrayFieldTemplateItemContext } from '../../ArrayFieldTemplate';
 
 export default function ObjectFieldTemplateProperties({ properties }) {
-  const { setFormData } = useContext(ArrayFieldTemplateItemContext);
+  const { setFormData, display } = useContext(ArrayFieldTemplateItemContext);
 
   useLayoutEffect(() => {
     properties.map(({ content }: { content: JSX.Element }) => {
       Children.map(content, ({ props: { formData, schema } }) => {
-        if (schema.type === 'string') {
+        if (schema.type === 'string' && display.indexOf(schema.name) !== -1) {
           return setFormData((prevState) => {
             if (prevState.length > 0) {
               const indexObject = prevState.findIndex((value) => {
@@ -17,6 +17,7 @@ export default function ObjectFieldTemplateProperties({ properties }) {
 
                 return false;
               });
+
               if (indexObject === -1) {
                 return [...prevState, { title: schema.title, value: formData }];
               } else {
@@ -24,7 +25,6 @@ export default function ObjectFieldTemplateProperties({ properties }) {
                   if (index === indexObject) {
                     return { title: schema.title, value: formData };
                   }
-
                   return value;
                 });
               }

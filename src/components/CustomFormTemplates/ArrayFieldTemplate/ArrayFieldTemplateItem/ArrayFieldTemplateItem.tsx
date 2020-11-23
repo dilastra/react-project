@@ -4,10 +4,11 @@ import { ArrayFieldTemplateContext } from '../ArrayFieldTemplate';
 
 export const ArrayFieldTemplateItemContext = createContext<any>({
   setFormData() {},
+  display: [],
 });
 
 export function ArrayFieldTemplateItem({ children, itemsLength, index, onDropIndexClick }) {
-  const { addedNewItem } = useContext(ArrayFieldTemplateContext);
+  const { addedNewItem, display } = useContext(ArrayFieldTemplateContext);
   const [showForm, setShowForm] = useState<boolean>(addedNewItem || false);
   const [modalState, setModalState] = useState<boolean>(false);
   const [formData, setFormData] = useState([]);
@@ -48,7 +49,7 @@ export function ArrayFieldTemplateItem({ children, itemsLength, index, onDropInd
         </div>
       </div>
       <div className={showForm ? undefined : 'hidden-container'}>
-        <ArrayFieldTemplateItemContext.Provider value={{ setFormData }}>
+        <ArrayFieldTemplateItemContext.Provider value={{ setFormData, display }}>
           {children}
         </ArrayFieldTemplateItemContext.Provider>
       </div>

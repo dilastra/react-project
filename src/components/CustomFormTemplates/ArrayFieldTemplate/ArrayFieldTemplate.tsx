@@ -1,14 +1,17 @@
-import { ArrayFieldTemplateProps } from '@rjsf/core';
 import React, { createContext, Fragment, useState } from 'react';
 import ArrayFieldTemplateItems from './ArrayFieldTemplateItems';
 
 export const ArrayFieldTemplateContext = createContext({
   addedNewItem: undefined,
+  display: [],
 });
 
-export function ArrayFieldTemplate(props: ArrayFieldTemplateProps): JSX.Element {
-  const { items, canAdd, onAddClick } = props;
-  console.log(props);
+export function ArrayFieldTemplate({
+  items,
+  canAdd,
+  onAddClick,
+  schema: { display },
+}): JSX.Element {
   const [addedNewItem, setAddedNewItem] = useState<boolean>(false);
 
   function handleClick(e) {
@@ -19,7 +22,7 @@ export function ArrayFieldTemplate(props: ArrayFieldTemplateProps): JSX.Element 
 
   return (
     <>
-      <ArrayFieldTemplateContext.Provider value={{ addedNewItem }}>
+      <ArrayFieldTemplateContext.Provider value={{ addedNewItem, display }}>
         <ArrayFieldTemplateItems items={items} />
       </ArrayFieldTemplateContext.Provider>
       {canAdd && (
