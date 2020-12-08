@@ -85,7 +85,11 @@ export function FormPage({
       formData,
       `/api/v1/applications/save${step === 'first-step' ? '' : `/${id}`}`,
       `/application/edit-form`
-    ).finally(() => toast.info('Заявка успешно сохранена'));
+    )
+      .then(({ formData }) => {
+        return setFormData({ formSchema, pageStepId, formData });
+      })
+      .finally(() => toast.info('Заявка успешно сохранена'));
 
     return;
   };
