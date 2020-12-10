@@ -1,14 +1,21 @@
-import React, { createContext, Fragment, useContext, useState } from 'react';
+import React, { createContext, Fragment, useState } from 'react';
 import { Modal } from '../../../Modal';
-import { ArrayFieldTemplateContext } from '../ArrayFieldTemplate';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const ArrayFieldTemplateItemContext = createContext<any>({
   setFormData() {},
   display: [],
 });
 
-export function ArrayFieldTemplateItem({ children, itemsLength, index, onDropIndexClick }) {
-  const { addedNewItem, display } = useContext(ArrayFieldTemplateContext);
+export function ArrayFieldTemplateItem({
+  children,
+  itemsLength,
+  index,
+  onDropIndexClick,
+  addedNewItem,
+  display,
+}) {
   const [showForm, setShowForm] = useState<boolean>(addedNewItem || false);
   const [modalState, setModalState] = useState<boolean>(false);
   const [formData, setFormData] = useState([]);
@@ -35,7 +42,7 @@ export function ArrayFieldTemplateItem({ children, itemsLength, index, onDropInd
         <div className={itemsLength > 0 ? 'is-flex is-align-items-center' : undefined}>
           <button className={'button is-rounded'} onClick={handleClick}>
             <div className={showForm ? 'rotate-button-icon' : undefined}>
-              <i className="fas fa-chevron-down"></i>
+              <FontAwesomeIcon icon={faChevronDown} />
             </div>
           </button>
           {itemsLength > 1 && (

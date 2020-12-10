@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { ArrayFieldTemplateItem } from '../ArrayFieldTemplateItem';
 import './ArrayFieldTemplateItems.scss';
 
-export default function ArrayFieldTemplateItems({ items }): JSX.Element {
+export default function ArrayFieldTemplateItems({ items, display, addedNewItem }): JSX.Element {
   return (
     <>
       {items &&
@@ -15,6 +15,8 @@ export default function ArrayFieldTemplateItems({ items }): JSX.Element {
                 onDropIndexClick={(event, index) => {
                   onDropIndexClick(index)(event);
                 }}
+                display={display}
+                addedNewItem={addedNewItem}
               >
                 {children}
               </ArrayFieldTemplateItem>

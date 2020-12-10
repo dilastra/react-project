@@ -30,7 +30,7 @@ export default function AppRouting(): JSX.Element {
         <ProductsPage />
       </Route>
       <Route exact path="/products/create-form/:id">
-        <FormPage step={'first-step'} openAllSection={true} />
+        <FormPage step={'first-step'} />
       </Route>
       <Route exact path="/profile">
         <ProfilePage />

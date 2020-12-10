@@ -22,7 +22,7 @@ export default function AuthLoginForm(): JSX.Element {
     setLoginInformation({ ...loginInformation, [name]: value });
   }
 
-  async function requestOnLogin() {
+  function requestOnLogin() {
     setDisabledButton(true);
     request('api/v1/auth/login', 'POST', {}, { ...loginInformation })
       .then((data) => {

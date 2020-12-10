@@ -7,7 +7,7 @@ export default function ObjectFieldTemplate({
   title,
   properties,
   schema: { id },
-}): JSX.Element {
+}: any): JSX.Element {
   return (
     <>
       <TitleField title={title} id={id} />

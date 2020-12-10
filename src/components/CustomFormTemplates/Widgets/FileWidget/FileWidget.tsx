@@ -1,3 +1,5 @@
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { WidgetProps } from '@rjsf/core';
 import React, { ChangeEvent, Fragment, useEffect, useRef, useState } from 'react';
 
@@ -36,7 +38,6 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
     e.preventDefault();
     if (confirm('Вы действительно хотите удалить файл?')) {
       setIdFile('');
-      setIdFile('');
       setFileInfo({ fileName: '', selectedFile: undefined });
       onChange(null);
     }
@@ -47,7 +48,10 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
     setDisabled(true);
     const newData = new FormData();
 
+    console.log(selectedFile);
+
     newData.append('myFile', selectedFile);
+    newData.append('fileName', selectedFile.name);
 
     const response = await fetch('/api/v1/files', {
       method: 'POST',
@@ -100,13 +104,14 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
               <span className="file-cta">
                 <span className="file-icon">
                   <i className="fas fa-upload"></i>
+                  <FontAwesomeIcon icon={faUpload} />
                 </span>
                 <span className="file-label">Выберите файл…</span>
               </span>
             </label>
           </div>
         )}
-        {!!fileName.length && selectedFile && !idFile.length && (
+        {!!fileName?.length && selectedFile && !idFile?.length && (
           <>
             <div className="is-flex is-align-items-center">
               <span className="subtitle m-0 mr-2">Будет загружен файл: {fileName}</span>
