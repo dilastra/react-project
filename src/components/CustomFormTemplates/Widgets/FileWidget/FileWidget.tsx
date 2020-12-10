@@ -48,10 +48,7 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
     setDisabled(true);
     const newData = new FormData();
 
-    console.log(selectedFile);
-
     newData.append('myFile', selectedFile);
-    newData.append('fileName', selectedFile.name);
 
     const response = await fetch('/api/v1/files', {
       method: 'POST',
@@ -63,7 +60,7 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
         data: { id },
       }: { data: { id: string; path: string } } = await response.json();
       setIdFile(id);
-      onChange({ id });
+      onChange({ id, fileName });
       setDisabled(false);
     } else {
       console.log(response.json());
