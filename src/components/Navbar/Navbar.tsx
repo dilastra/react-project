@@ -1,12 +1,12 @@
 import React, { Fragment, useContext, useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { arrNavLink } from './arrNavLink';
 
 export default function Navbar(): JSX.Element {
   document.querySelector('html').classList.add('has-navbar-fixed-top');
   const [stateMenu, setStateMenu] = useState<boolean>(false);
-  const history = useHistory();
+
   const { logout } = useContext(AppContext);
 
   function onClick() {

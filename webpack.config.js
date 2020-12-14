@@ -29,18 +29,8 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              publicPath: './assets/images',
-              outputPath: './assets/images',
-              useRelativePath: true,
-            },
-          },
-        ],
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },

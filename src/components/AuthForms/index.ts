@@ -1,4 +1,4 @@
-import {AuthCryptoForm} from './AuthCryptoForm';
-import {AuthLoginForm} from './AuthLoginForm';
+import AuthCryptoForm from './AuthCryptoForm';
+import AuthLoginForm from './AuthLoginForm';
 
-export {AuthCryptoForm, AuthLoginForm};
+export { AuthCryptoForm, AuthLoginForm };

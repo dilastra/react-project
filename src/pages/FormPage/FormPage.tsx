@@ -22,6 +22,7 @@ export default function FormPage({ step }: { step: string }): JSX.Element {
   const [hideLoader, setHideLoader] = useState<boolean>(false);
 
   useEffect(() => {
+    let mounted = true;
     const urlPath =
       step === 'first-step' ? `/api/v1/products/path/${id}` : `/api/v1/applications/${id}`;
 
@@ -55,6 +56,8 @@ export default function FormPage({ step }: { step: string }): JSX.Element {
         }
       ),
     ]).finally(() => setHideLoader(true));
+
+    return (mounted = false);
   }, []);
 
   function onClickButton(formData: object, urlFetch: string, urlRedirect: string): Promise<any> {

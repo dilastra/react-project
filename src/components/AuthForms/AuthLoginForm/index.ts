@@ -1,3 +1,3 @@
 import AuthLoginForm from './AuthLoginForm';
 
-export {AuthLoginForm};
+export default AuthLoginForm;

@@ -1,3 +1,3 @@
-import {ApplicationsList} from './ApplicationsList';
+import ApplicationsList from './ApplicationsList';
 
-export {ApplicationsList};
+export default ApplicationsList;

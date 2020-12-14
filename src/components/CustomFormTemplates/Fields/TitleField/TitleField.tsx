@@ -1,7 +1,7 @@
 import { FieldProps } from '@rjsf/core';
 import React, { Fragment } from 'react';
 
-export default function TitleField({ title, id }: FieldProps) {
+export default function TitleField({ title, id }: FieldProps): JSX.Element {
   return (
     <>
       {title && (

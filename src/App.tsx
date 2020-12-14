@@ -13,36 +13,33 @@ export const AppContext = createContext({
 
 export function App(): JSX.Element {
   const { token, login, logout, ready } = useAuth();
-
-  if (!token.length && ready) {
-    return (
-      <AppContext.Provider value={{ token, login, logout }}>
-        <LoginRouting />
-      </AppContext.Provider>
-    );
-  } else if (token.length && ready) {
+  if (ready) {
     return (
       <>
         <AppContext.Provider value={{ token, login, logout }}>
-          <Navbar />
-          <div className="container is-fullhd">
-            <AppRouting />
-            <ToastContainer
-              position="bottom-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
-          </div>
+          {!token.length && <LoginRouting />}
+          {!!token?.length && (
+            <>
+              <Navbar />
+              <div className="container is-fullhd">
+                <AppRouting />
+                <ToastContainer
+                  position="bottom-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
+              </div>
+            </>
+          )}
         </AppContext.Provider>
       </>
     );
-  } else {
-    return <Loader />;
   }
+  return <Loader />;
 }

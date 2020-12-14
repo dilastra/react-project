@@ -9,11 +9,17 @@ export default function ProductsPage(): JSX.Element {
   const [hideLoader, setHideLoader] = useState<boolean>(false);
 
   useEffect(() => {
-    request('/api/v1/products', 'GET', {
-      Authorization: `Bearer ${token}`,
-    })
-      .then((data) => setProducts(data))
-      .finally(() => setHideLoader(true));
+    let mounted = true;
+
+    if (mounted) {
+      request('/api/v1/products', 'GET', {
+        Authorization: `Bearer ${token}`,
+      })
+        .then((data) => setProducts(data))
+        .finally(() => setHideLoader(true));
+    }
+
+    return () => (mounted = false);
   }, [token]);
 
   return <>{hideLoader ? <ProductsList products={products} /> : <Loader />}</>;

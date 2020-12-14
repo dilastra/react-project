@@ -15,7 +15,11 @@ interface IApplication {
   createdAt: string;
 }
 
-export function ApplicationsList({ applications }: { applications: IApplication[] }): JSX.Element {
+export default function ApplicationsList({
+  applications,
+}: {
+  applications: IApplication[];
+}): JSX.Element {
   if (!applications?.length) {
     return <p>Заявок нет</p>;
   }

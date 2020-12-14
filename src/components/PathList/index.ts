@@ -1,3 +1,3 @@
 import PathList from './PathList';
 
-export {PathList};
+export default PathList;

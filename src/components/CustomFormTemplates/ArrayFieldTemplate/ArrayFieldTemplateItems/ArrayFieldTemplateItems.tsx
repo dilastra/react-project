@@ -12,9 +12,7 @@ export default function ArrayFieldTemplateItems({ items, display, addedNewItem }
               <ArrayFieldTemplateItem
                 itemsLength={items.length}
                 index={index}
-                onDropIndexClick={(event, index) => {
-                  onDropIndexClick(index)(event);
-                }}
+                onDropIndexClick={onDropIndexClick}
                 display={display}
                 addedNewItem={addedNewItem}
               >

@@ -1,8 +1,8 @@
 import React, { useCallback, useContext, useState, Fragment } from 'react';
 import { Certificate, getUserCertificates, createSignature } from 'crypto-pro/dist/crypto-pro';
 import { AppContext } from '../../../App';
-import { Modal } from '../../Modal';
 import { request } from '../../../functions';
+import { Modal } from '../..';
 
 export default function AuthCryptoForm(): JSX.Element {
   const { login } = useContext(AppContext);

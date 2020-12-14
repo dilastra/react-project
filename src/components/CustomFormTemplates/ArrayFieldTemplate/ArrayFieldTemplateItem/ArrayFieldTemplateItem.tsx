@@ -1,7 +1,7 @@
 import React, { createContext, Fragment, useState } from 'react';
-import { Modal } from '../../../Modal';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Modal } from '../../..';
+
+import HeaderArrayFieldTemplateItem from './HeaderArrayFieldTemplateItem';
 
 export const ArrayFieldTemplateItemContext = createContext<any>({
   setFormData() {},
@@ -15,7 +15,7 @@ export function ArrayFieldTemplateItem({
   onDropIndexClick,
   addedNewItem,
   display,
-}) {
+}): JSX.Element {
   const [showForm, setShowForm] = useState<boolean>(addedNewItem || false);
   const [modalState, setModalState] = useState<boolean>(false);
   const [formData, setFormData] = useState([]);
@@ -25,39 +25,15 @@ export function ArrayFieldTemplateItem({
   }
   return (
     <>
-      <div className={`is-flex is-justify-content-space-between ${showForm ? 'mb-3' : ''}`}>
-        <div className="is-flex is-align-items-center">
-          {formData
-            .sort((a, b) => {
-              return display.indexOf(a.name) - display.indexOf(b.name);
-            })
-            .map(({ value }, index) => {
-              return (
-                <Fragment key={index}>
-                  {value && value.length > 0 && <span className="mr-1">{`${value}`}</span>}
-                </Fragment>
-              );
-            })}
-        </div>
-        <div className={itemsLength > 0 ? 'is-flex is-align-items-center' : undefined}>
-          <button className={'button is-rounded'} onClick={handleClick}>
-            <div className={showForm ? 'rotate-button-icon' : undefined}>
-              <FontAwesomeIcon icon={faChevronDown} />
-            </div>
-          </button>
-          {itemsLength > 1 && (
-            <>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setModalState(true);
-                }}
-                className="has-background-danger delete is-large ml-3"
-              ></button>
-            </>
-          )}
-        </div>
-      </div>
+      <HeaderArrayFieldTemplateItem
+        showForm={showForm}
+        formData={formData}
+        display={display}
+        itemsLength={itemsLength}
+        handleClick={handleClick}
+        setModalState={setModalState}
+      />
+
       <div className={showForm ? undefined : 'hidden-container'}>
         <ArrayFieldTemplateItemContext.Provider value={{ setFormData, display }}>
           {children}
@@ -84,9 +60,9 @@ export function ArrayFieldTemplateItem({
               </button>
               <button
                 className="button is-primary"
-                onClick={(event) => {
-                  event.preventDefault();
-                  onDropIndexClick(event, index);
+                onClick={(e) => {
+                  e.preventDefault();
+                  onDropIndexClick(index)(e);
                   setModalState(!modalState);
                 }}
               >

@@ -67,7 +67,7 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
     }
   }
 
-  async function getFile(e: React.MouseEvent<HTMLButtonElement>, id: string) {
+  function getFile(e: React.MouseEvent<HTMLButtonElement>, id: string) {
     e.preventDefault();
     fetch('/api/v1/files/' + id, {
       method: 'GET',

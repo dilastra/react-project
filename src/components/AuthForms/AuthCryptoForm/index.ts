@@ -1,3 +1,3 @@
 import AuthCryptoForm from './AuthCryptoForm';
 
-export {AuthCryptoForm};
+export default AuthCryptoForm;

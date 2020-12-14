@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, Fragment, useState } from "react";
-import { AppContext } from "../../App";
-import { ApplicationsList, Loader } from "../../components";
-import { request } from "../../functions";
+import React, { useContext, useEffect, Fragment, useState } from 'react';
+import { AppContext } from '../../App';
+import { ApplicationsList, Loader } from '../../components';
+import { request } from '../../functions';
 
 export default function ApplicationsPage(): JSX.Element {
   const { token } = useContext(AppContext);
   const [applications, setApplications] = useState<any[]>([]);
   const [hideLoader, setHideLoader] = useState<boolean>(false);
   useEffect(() => {
-    request("/api/v1/applications", "GET", {
+    let mounted = true;
+    request('/api/v1/applications', 'GET', {
       Authorization: `Bearer ${token}`,
     })
       .then((data) => {
@@ -17,6 +18,18 @@ export default function ApplicationsPage(): JSX.Element {
       .finally(() => {
         setHideLoader(true);
       });
+
+    return () => {
+      return (mounted = false);
+    };
   }, [token]);
-  return <>{applications.length || hideLoader ? <ApplicationsList applications={applications} /> : <Loader />}</>;
+  return (
+    <>
+      {applications.length || hideLoader ? (
+        <ApplicationsList applications={applications} />
+      ) : (
+        <Loader />
+      )}
+    </>
+  );
 }
