@@ -3,13 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { WidgetProps } from '@rjsf/core';
 
-export default function FileWidget({ id, value, onChange }: WidgetProps) {
+export default function FileWithSignWidget({ id, value, onChange }: WidgetProps) {
+  const [fileHasSign, setFileHasSign] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [{ fileName, selectedFile, idFile }, setFileInfo] = useState<{
     fileName: string;
     selectedFile: File;
     idFile?: string;
   }>({ fileName: '', selectedFile: undefined, idFile: '' });
+
   const inputFileRef = useRef<HTMLInputElement>();
 
   useEffect(() => {
@@ -65,6 +67,11 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
     }
   }
 
+  function signFile(e) {
+    e.preventDefault();
+    setFileHasSign(true);
+  }
+
   function getFile(id: string) {
     return function (e: React.MouseEvent<HTMLButtonElement>) {
       setDisabled(true);
@@ -89,7 +96,7 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
 
   return (
     <>
-      <div className="is-flex is-align-items-center">
+      <div className={`box is-flex ${idFile ? 'is-flex-direction-column' : ''}  content mb-3`}>
         {!idFile && (
           <div className="file mr-3">
             <label htmlFor={id} className="file-label">
@@ -141,6 +148,23 @@ export default function FileWidget({ id, value, onChange }: WidgetProps) {
               <button className="button is-primary is-outlined" onClick={onDeletelUploadedFile}>
                 Удалить файл
               </button>
+              <button
+                className={`button ml-2 is-primary ${disabled ? 'is-loading' : ''}`}
+                onClick={signFile}
+                disabled={fileHasSign}
+              >
+                {fileHasSign ? 'Файл подписан' : 'Подписать файл'}
+              </button>
+            </div>
+            <div className="content">
+              <h2 className="subtitle is-size-4 m-0 mt-5">Дополнительная информация о файле</h2>
+              <p className="is-size-5 mt-3">
+                Cтатус: <strong>Не принят</strong>
+              </p>
+              <h2 className="subtitle is-size-4 m-0 mt-5">Комментарии:</h2>
+              <p className="is-size-5 mt-3">
+                <strong>Сотрудник банка:</strong> Файл имеет нeкорректный вид
+              </p>
             </div>
           </>
         )}

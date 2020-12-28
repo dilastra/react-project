@@ -1,9 +1,10 @@
 import TextWidget from './TextWidget';
-import FileWidget from './FileWidget';
 import CheckboxWidget from './CheckboxWidget';
+import FileWithSignWidget from './FileWithSignWidget';
+
 const Widgets = {
   TextWidget,
-  FileWidget,
+  FileWidget: FileWithSignWidget,
   CheckboxWidget,
 };
 
